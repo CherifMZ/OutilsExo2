@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        -<beans xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" xmlns:security="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans">
+
+
+    -<security:authentication-manager>
+
+
+    -<security:authentication-provider>
+
+    <security:jdbc-user-service id="jdbcUserService" users-by-username-query="select username, password, enabled from users where binary username = ?" authorities-by-username-query="select username, authority from users where binary username = ?" data-source-ref="dataSource"/>
+
+    <security:password-encoder ref="passwordEncoder"/>
+
+</security:authentication-provider>
+
+</security:authentication-manager>
+
+
+    -<security:http use-expressions="true">
+
+    <security:intercept-url access="isAuthenticated()" pattern="/testcreate"/>
+
+    <security:intercept-url access="isAuthenticated()" pattern="/reservebook"/>
+
+    <security:intercept-url access="isAuthenticated()" pattern="/getreservations"/>
+
+    <security:intercept-url access="permitAll" pattern="/"/>
+
+    <security:intercept-url access="permitAll" pattern="/reservebus"/>
+
+    <security:intercept-url access="permitAll" pattern="/createaccount"/>
+
+    <security:intercept-url access="permitAll" pattern="/results"/>
+
+    <security:intercept-url access="permitAll" pattern="/reservetrip"/>
+
+    <security:intercept-url access="permitAll" pattern="/home"/>
+
+    <security:intercept-url access="permitAll" pattern="/login"/>
+
+    <security:form-login authentication-failure-url="/login?error=true" login-page="/login"/>
+
+    <security:logout logout-success-url="/loggedout"/>
+
+    <security:access-denied-handler error-page="/denied"/>
+
+</security:http>
+
+    <security:global-method-security secured-annotations="enabled"/>
+
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"> </bean>
+
+</beans>
