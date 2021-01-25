@@ -22,6 +22,8 @@ public class UserController {
 
     @Autowired
     ReserveService reserveService;
+        ReserveService reserveService;
+
 
 
     @RequestMapping(value = "/reservebook", method = RequestMethod.POST)
